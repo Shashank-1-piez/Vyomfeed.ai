@@ -28,6 +28,7 @@
       <button data-page="analytics" class="px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 font-medium">Analytics</button>
       <button data-page="calendar" class="px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 font-medium">Calendar</button>
       <button data-page="insurance" class="px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 font-medium">Insurance</button>
+      <button data-page="ai" class="px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 font-medium">AI Assistant</button>
       <button data-page="settings" class="px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-slate-700 font-medium">Settings</button>
     </nav>
 
@@ -54,9 +55,7 @@
   <!-- ===== MAIN CONTENT ===== -->
   <main id="mainContent" class="p-6 space-y-6">
 
-    <!-- ===================================== -->
     <!-- HEALTH FEED -->
-    <!-- ===================================== -->
     <section id="healthFeed" class="page-section space-y-6">
 
       <div class="card bg-gradient-to-br from-blue-50 to-teal-50 dark:from-slate-800 dark:to-slate-900">
@@ -97,9 +96,7 @@
 
     </section>
 
-    <!-- ===================================== -->
     <!-- ANALYTICS -->
-    <!-- ===================================== -->
     <section id="analytics" class="page-section hidden space-y-6">
 
       <div class="flex items-center justify-between">
@@ -128,9 +125,7 @@
       </div>
     </section>
 
-    <!-- ===================================== -->
     <!-- CALENDAR -->
-    <!-- ===================================== -->
     <section id="calendar" class="page-section hidden space-y-6 p-6">
 
       <div class="flex items-center justify-between">
@@ -194,9 +189,57 @@
       </div>
     </section>
 
-    <!-- ===================================== -->
+    <!-- AI ASSISTANT -->
+    <section id="ai" class="page-section hidden space-y-6 p-2">
+      <div class="flex flex-col md:flex-row gap-6">
+        <!-- LEFT: AI Insights -->
+        <div class="flex-1">
+          <div class="card">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xl font-semibold">AI Health Insights</h2>
+              <button id="refreshInsights" class="px-3 py-1 rounded bg-teal-600 text-white">Refresh</button>
+            </div>
+
+            <div id="insightsArea" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- cards injected by JS -->
+            </div>
+          </div>
+
+          <div class="card mt-4">
+            <h3 class="text-lg font-semibold mb-2">Summary</h3>
+            <div id="aiSummary" class="text-sm text-gray-600 dark:text-gray-300">
+              AI will summarize your trends here.
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Chat -->
+        <div class="w-full md:w-2/5">
+          <div class="card flex flex-col h-[600px]">
+            <h3 class="text-lg font-semibold mb-3">AI Chat — VyomFeed Assistant</h3>
+
+            <div id="chatWindow" class="flex-1 overflow-y-auto p-3 space-y-3 border rounded-lg bg-gray-50 dark:bg-slate-800">
+              <!-- messages will appear here -->
+            </div>
+
+            <div class="mt-3 flex items-center gap-3">
+              <input id="chatInput" type="text" placeholder="Ask about your weight, sugar, or trends..."
+                class="flex-1 border rounded-lg p-2" />
+              <button id="sendChat" class="px-4 py-2 rounded bg-blue-600 text-white">Send</button>
+            </div>
+
+            <div class="mt-3 text-sm text-gray-500">
+              Quick prompts:
+              <button class="quickPrompt px-2 py-1 ml-2 rounded bg-gray-100">How is my weight?</button>
+              <button class="quickPrompt px-2 py-1 ml-2 rounded bg-gray-100">Any alerts?</button>
+              <button class="quickPrompt px-2 py-1 ml-2 rounded bg-gray-100">Diet suggestions</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- INSURANCE -->
-    <!-- ===================================== -->
     <section id="insurance" class="page-section hidden space-y-6">
       <div class="flex justify-between items-center">
         <h2 class="text-xl font-semibold">Insurance Wallet</h2>
@@ -215,9 +258,7 @@
       </div>
     </section>
 
-    <!-- ===================================== -->
     <!-- USER SETTINGS -->
-    <!-- ===================================== -->
     <section id="settings" class="page-section hidden p-6 space-y-6">
 
       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
@@ -230,30 +271,30 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="text-sm font-medium text-gray-700">Full Name</label>
-              <input type="text" class="w-full border border-gray-300 rounded-lg p-2 mt-1" value="Shashank Thanuku">
+              <input id="profileName" type="text" class="w-full border border-gray-300 rounded-lg p-2 mt-1" value="Shashank Thanuku">
             </div>
             <div>
               <label class="text-sm font-medium text-gray-700">Date of Birth</label>
-              <input type="date" class="w-full border border-gray-300 rounded-lg p-2 mt-1">
+              <input id="profileDob" type="date" class="w-full border border-gray-300 rounded-lg p-2 mt-1">
             </div>
           </div>
 
           <div>
             <label class="text-sm font-medium text-gray-700">Blood Group</label>
-            <input type="text" class="w-full border border-gray-300 rounded-lg p-2 mt-1" placeholder="e.g., O+">
+            <input id="profileBg" type="text" class="w-full border border-gray-300 rounded-lg p-2 mt-1" placeholder="e.g., O+">
           </div>
 
           <div>
             <label class="text-sm font-medium text-gray-700">Allergies</label>
-            <input type="text" class="w-full border border-gray-300 rounded-lg p-2 mt-1" placeholder="e.g., Peanuts">
+            <input id="profileAll" type="text" class="w-full border border-gray-300 rounded-lg p-2 mt-1" placeholder="e.g., Peanuts">
           </div>
 
           <div>
             <label class="text-sm font-medium text-gray-700">Chronic Conditions</label>
-            <input type="text" class="w-full border border-gray-300 rounded-lg p-2 mt-1" placeholder="e.g., Asthma">
+            <input id="profileChronic" type="text" class="w-full border border-gray-300 rounded-lg p-2 mt-1" placeholder="e.g., Asthma">
           </div>
 
-          <button type="submit"
+          <button id="saveProfile" type="button"
             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
             Save Changes
           </button>
