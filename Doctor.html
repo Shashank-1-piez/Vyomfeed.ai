@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VyomFeed — Doctor Panel</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="min-h-screen bg-gray-50">
+
+  <!-- ====================== HEADER ====================== -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center text-white font-bold">V</div>
+        <h1 class="text-lg font-semibold">VyomFeed — Doctor Panel</h1>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <span id="userDisplay" class="text-sm text-gray-700">doctor@gmail.com</span>
+        <button id="logoutBtn" class="text-sm text-gray-600 hover:text-red-500">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================== LAYOUT ====================== -->
+  <div class="max-w-6xl mx-auto flex gap-6 p-6">
+
+    <!-- ========== Sidebar ========== -->
+    <nav class="w-64 bg-white rounded-lg p-4 shadow-sm">
+      <button class="sidebar-item active" data-page="portal">Patient Portal</button>
+      <button class="sidebar-item" data-page="scan">Scan / Lookup</button>
+    </nav>
+
+    <!-- ========== Main Content ========== -->
+    <main class="flex-1">
+
+      <!-- =================== PATIENT PORTAL =================== -->
+      <section id="portal" class="page card">
+
+        <h2 class="text-xl font-semibold mb-3">Patient Lookup</h2>
+
+        <div class="mb-3">
+          <input id="manualEmail" placeholder="Enter patient email (eg. user@gmail.com)"
+            class="w-80 border rounded p-2" />
+          <button id="manualLookup" class="ml-2 py-2 px-4 rounded bg-teal-600 text-white hover:bg-teal-700">
+            Lookup
+          </button>
+        </div>
+
+        <div id="scanResult"></div>
+
+        <!-- Upload zone (hidden until a patient is found) -->
+        <div id="doctorUploadZone" class="hidden mt-4 card">
+          <h3 class="font-medium mb-2">Upload Report to Patient</h3>
+
+          <form>
+            <input type="file" accept=".pdf,.png,.jpg" class="mb-2" />
+            <textarea placeholder="Notes for the patient..."
+              class="w-full border rounded p-2 mb-2"></textarea>
+
+            <button type="button" class="py-2 px-4 rounded bg-teal-600 text-white hover:bg-teal-700">
+              Upload
+            </button>
+          </form>
+        </div>
+
+        <div class="mt-4 card">
+          <h3 class="font-medium mb-2">Doctor Notes / Prescription</h3>
+
+          <textarea id="docNote" class="w-full border rounded p-2 mb-2"
+            placeholder="Write a note or prescription"></textarea>
+
+          <button id="addNoteBtn" class="py-2 px-4 rounded bg-teal-600 text-white hover:bg-teal-700">
+            Add Note
+          </button>
+        </div>
+
+      </section>
+
+      <!-- =================== SCAN PAGE =================== -->
+      <section id="scan" class="page hidden card">
+        <h2 class="text-xl font-semibold mb-3">Scan (Simulated)</h2>
+
+        <p class="text-sm text-gray-600 mb-3">
+          This demo doesn't use real scanning. Click Start Scan and paste a QR/email below.
+        </p>
+
+        <button id="startScan" class="py-2 px-4 rounded bg-teal-600 text-white hover:bg-teal-700">
+          Start Scan
+        </button>
+
+        <div id="scanOutput" class="mt-4"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ====================== SCRIPT ====================== -->
+  <script src="app.js"></script>
+
+  <script>
+    // Sidebar Navigation (Doctor Panel)
+    const pages = document.querySelectorAll(".page");
+    const sideBtns = document.querySelectorAll(".sidebar-item");
+
+    sideBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        sideBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const page = btn.dataset.page;
+
+        pages.forEach(p => p.classList.add("hidden"));
+        document.getElementById(page).classList.remove("hidden");
+      });
+    });
+  </script>
+
+</body>
+</html>
